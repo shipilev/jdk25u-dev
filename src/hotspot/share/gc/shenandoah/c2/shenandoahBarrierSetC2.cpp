@@ -950,7 +950,7 @@ void ShenandoahBarrierStubC2::load_store_post(MacroAssembler* masm, const MachNo
 }
 
 bool ShenandoahBarrierStubC2::is_live_register(Register reg) {
-  return preserve_set().member(OptoReg::as_OptoReg(reg->as_VMReg()));
+  return preserve_set().Member(OptoReg::as_OptoReg(reg->as_VMReg()));
 }
 
 Register ShenandoahBarrierStubC2::select_temp_register(bool& selected_live, Register skip_reg1, Register skip_reg2) {
