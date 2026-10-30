@@ -63,6 +63,7 @@ public class ApplicableIRRulesPrinter {
     // as adding non-existent platforms can lead to skipped tests.
     private static final List<String> irTestingPlatforms = new ArrayList<>(Arrays.asList(
         // os.family
+        "aix",
         "linux",
         "mac",
         "windows",
@@ -348,7 +349,9 @@ public class ApplicableIRRulesPrinter {
         }
 
         String os = "";
-        if (Platform.isLinux()) {
+        if (Platform.isAix()) {
+            os = "aix";
+        } else if (Platform.isLinux()) {
             os = "linux";
         } else if (Platform.isOSX()) {
             os = "mac";
