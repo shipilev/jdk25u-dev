@@ -82,6 +82,8 @@ public:
   static void assert_control_or_vm_thread_at_safepoint(bool at_safepoint, const char* file, int line);
   static void assert_generational(const char* file, int line);
 
+  static void assert_in_young(void* interior_loc, oop obj, const char* file, int line);
+
 #ifdef ASSERT
 #define shenandoah_assert_in_heap_bounds(interior_loc, obj) \
                     ShenandoahAsserts::assert_in_heap_bounds(interior_loc, obj, __FILE__, __LINE__)
@@ -157,6 +159,13 @@ public:
   if (!(exception)) ShenandoahAsserts::assert_not_in_cset_loc(interior_loc, __FILE__, __LINE__)
 #define shenandoah_assert_not_in_cset_loc(interior_loc) \
                     ShenandoahAsserts::assert_not_in_cset_loc(interior_loc, __FILE__, __LINE__)
+
+#define shenandoah_assert_in_young_if(interior_loc, obj, condition) \
+  if (condition)    ShenandoahAsserts::assert_in_young(interior_loc, obj, __FILE__, __LINE__)
+#define shenandoah_assert_in_young_except(interior_loc, obj, exception) \
+  if (!(exception)) ShenandoahAsserts::assert_in_young(interior_loc, obj, __FILE__, __LINE__)
+#define shenandoah_assert_in_young(interior_loc, obj) \
+                    ShenandoahAsserts::assert_in_young(interior_loc, obj, __FILE__, __LINE__)
 
 #define shenandoah_assert_rp_isalive_installed() \
                     ShenandoahAsserts::assert_rp_isalive_installed(__FILE__, __LINE__)
@@ -244,6 +253,10 @@ public:
 #define shenandoah_assert_control_or_vm_thread()
 #define shenandoah_assert_control_or_vm_thread_at_safepoint()
 #define shenandoah_assert_generational()
+
+#define shenandoah_assert_in_young_if(interior_loc, obj, condition)
+#define shenandoah_assert_in_young_except(interior_loc, obj, exception)
+#define shenandoah_assert_in_young(interior_loc, obj)
 
 #endif
 
