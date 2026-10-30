@@ -448,6 +448,7 @@ public:
 void ShenandoahBarrierSet::clone_evacuation(oop obj) {
   assert(_heap->is_evacuation_in_progress(), "only during evacuation");
   if (need_bulk_update(cast_from_oop<HeapWord*>(obj))) {
+    ShenandoahEvacOOMScope oom_evac;
     ShenandoahUpdateEvacForCloneOopClosure<true> cl;
     obj->oop_iterate(&cl);
   }
